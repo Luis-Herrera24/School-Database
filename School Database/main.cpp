@@ -82,7 +82,35 @@ public:
             cout << endl;
         }
     }
+    void deleteStudent(const string& iD){
+        auto it = studentBD.find(iD);
+        if (it!= studentBD.end()){
+            studentBD.erase(it);
+            cout << "Student with ID " << iD << " was successfully delete" << endl;
+        }
+        else {
+            cout << "Student with ID: " << iD << " was not found" << endl;
+        }
+    }
+    void deleteCourse(const string& iD){
+        auto it = courseBD.find(iD);
+        if (it!= courseBD.end()){
+            courseBD.erase(it);
+            cout << "Course with ID " << iD << " was successfully delete" << endl;
+        }
+        else {
+            cout << "Course with ID: " << iD << " was not found" << endl;
+        }
+    }
+    void deleteAllCourses(){
+        courseBD.clear();
+        cout << "All courses have been deleted" << endl;
+    }
     
+    void deleteAllStudents(){
+        studentBD.clear();
+        cout << "All students have been deleted" << endl;
+    }
 };
 
 int main(){
@@ -95,6 +123,13 @@ int main(){
     
     newData.displayAllStudents();
     newData.displayAllCourses();
+    
+    newData.deleteStudent("101");
+    newData.deleteCourse("COMP 1333.012");
+    
+    newData.displayAllStudents();
+    newData.displayAllCourses();
+    
   //Student* newStudent = new Student ("Luis Herrera", "Senior");
   
   /*newCourse.displayCourseInfo();
