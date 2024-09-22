@@ -26,15 +26,15 @@ This project is a basic school database system built using C++. It manages stude
 ## Code Snippets
 
 ### Adding a Student
-``cpp
+``
 newData.addStudent("101", Student("Luis Herrera", "Senior"));  
 ``
 ### Updating a Teacher
-``cpp
+``
 newData.updateTeacher("COMP 1333.012", "L. Herrera");
 ``
 ### Deleting a Course
-``cpp
+``
 newData.deleteCourse("COMP 1333.012");
 ``
 ## How to Compile and Run
