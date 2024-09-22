@@ -5,13 +5,6 @@
 //  Created by Luis Herrera on 9/20/24.
 //
 
-//
-//  main.cpp
-//  Student Database
-//
-//  Created by Luis Herrera on 9/20/24.
-//
-
 #include <iostream>
 #include <vector>
 #include <string>
@@ -20,35 +13,58 @@
 using namespace std;
 
 class Course{
-public:
+private:
     //Attributes
     string courseName;
     string courseTeacher;
-    
+public:
     // Constructor
     Course() {}
     Course(string name, string teacher){
         courseName = name;
         courseTeacher = teacher;
     }
-    
+    string getCourseName() const{
+        return courseName;
+    }
+    string getCourseTeacher() const{
+        return courseTeacher;
+    }
+    void setCourseName(const string& name){
+        courseName = name;
+    }
+    void setCourseTeacher(const string& teacher){
+        courseTeacher = teacher;
+    }
     // Method
     void displayCourseInfo() const{
-        cout << " Course: " << courseName << ", Teacher: " << courseTeacher;
+        cout << "Course: " << courseName << ", Teacher: " << courseTeacher;
     }
 };
 
 class Student{
-public:
+private:
     string studentName;
     string studentLevel;
     
+public:
     Student() {}
     Student (string name, string level) {
         studentName = name;
         studentLevel = level;
     }
-    
+    void setStudentName(const string& name){
+        studentName = name;
+    }
+    void setStudentLevel(const string& level){
+        studentLevel = level;
+    }
+    string getStudentName() const{
+        return studentName;
+    }
+    string getStudentLevel() const{
+        return studentLevel;
+    }
     void displayStudentInfo() const {
         cout << "Student: " << studentName << " Grade: " << studentLevel;
     }
@@ -63,29 +79,41 @@ public:
     
     void addCourse(string iD, const Course& course){
         courseBD[iD] = course;
+        cout << "Added ";
+        course.displayCourseInfo();
+        cout << endl;
     }
     void addStudent(string iD, const Student& student){
         studentBD[iD] = student;
+        cout << "Added ";
+        student.displayStudentInfo();
+        cout << endl;
     }
-    
     void displayAllStudents(){
         for(auto& pair : studentBD){
             pair.second.displayStudentInfo();
             cout << " ID: " << pair.first << endl;
         }
+        if(studentBD.empty()){
+            cout << "No students in the database." << endl;
+        }
     }
     void displayAllCourses(){
         for(auto& pair : courseBD){
             cout << "ID: " << pair.first;
+            cout << " ";
             pair.second.displayCourseInfo();
             cout << endl;
+        }
+        if(courseBD.empty()){
+            cout << "No courses in the database." << endl;
         }
     }
     void deleteStudent(const string& iD){
         auto it = studentBD.find(iD);
         if (it!= studentBD.end()){
             studentBD.erase(it);
-            cout << "Student with ID " << iD << " was successfully delete" << endl;
+            cout << "Student with ID " << iD << " was successfully deleted" << endl;
         }
         else {
             cout << "Student with ID: " << iD << " was not found" << endl;
@@ -95,7 +123,7 @@ public:
         auto it = courseBD.find(iD);
         if (it!= courseBD.end()){
             courseBD.erase(it);
-            cout << "Course with ID " << iD << " was successfully delete" << endl;
+            cout << "Course with ID " << iD << " was successfully deleted" << endl;
         }
         else {
             cout << "Course with ID: " << iD << " was not found" << endl;
@@ -104,7 +132,7 @@ public:
     void updateTeacher (const string& iD, const string& newTeacher){
         auto it = courseBD.find(iD);
         if(it != courseBD.end()){
-            it -> second.courseTeacher = newTeacher;
+            it -> second.setCourseTeacher(newTeacher);
             cout << "Teacher for course ID: " << iD << " has been updated" << endl;
         }
         else{
@@ -114,7 +142,7 @@ public:
     void updateCourseName(const string& iD, const string& newCourseName){
         auto courseIteration = courseBD.find(iD);
         if (courseIteration != courseBD.end()){
-            courseIteration -> second.courseName = newCourseName;
+            courseIteration -> second.setCourseName(newCourseName);
             cout << "Name of Course ID: " << iD << " was updated to " << newCourseName << endl;
         }
         else {
@@ -124,7 +152,7 @@ public:
     void updateStudentName(const string& iD, const string& newStudentName){
         auto studentIteration = studentBD.find(iD);
         if(studentIteration != studentBD.end()){
-            studentIteration -> second.studentName = newStudentName;
+            studentIteration -> second.setStudentName(newStudentName);
             cout << "Student with ID: " << iD << " name was updated to " << newStudentName << endl;
         }
         else {
@@ -134,7 +162,7 @@ public:
     void updateStudentLevel(const string& iD, const string& newStudentLevel){
         auto studentIteration = studentBD.find(iD);
         if(studentIteration != studentBD.end()){
-            studentIteration -> second.studentLevel = newStudentLevel;
+            studentIteration -> second.setStudentLevel(newStudentLevel);
             cout << "Student with ID: " << iD << " school level was updated to " << newStudentLevel << endl;
         }
         else
@@ -156,8 +184,11 @@ int main(){
     Database newData;
     
     newData.addStudent("101", Student("Luis Herrera", "Senior"));
+    newData.addStudent("102", Student("James White", "Freshman"));
+    newData.addStudent("103", Student("Lisa Simpson", "Junior"));
 
     newData.addCourse("COMP 1333.012",Course("Into To Computer Science", "D. Frank"));
+    newData.addCourse("MATH 1400.193", Course("Calculus", "Dr H. Simpson"));
     
     newData.displayAllStudents();
     newData.displayAllCourses();
@@ -172,6 +203,9 @@ int main(){
     
     newData.deleteStudent("101");
     newData.deleteCourse("COMP 1333.012");
+    
+    newData.deleteAllCourses();
+    newData.deleteAllStudents();
     
     newData.displayAllStudents();
     newData.displayAllCourses();
