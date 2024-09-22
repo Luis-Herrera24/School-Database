@@ -26,5 +26,26 @@ This project is a basic school database system built using C++. It manages stude
 ## Code Snippets
 
 ### Adding a Student
-```cpp
-newData.addStudent("101", Student("Luis Herrera", "Senior"));
+``cpp
+newData.addStudent("101", Student("Luis Herrera", "Senior"));  
+``
+### Updating a Teacher
+``cpp
+newData.updateTeacher("COMP 1333.012", "L. Herrera");
+``
+### Deleting a Course
+``cpp
+newData.deleteCourse("COMP 1333.012");
+``
+## How to Compile and Run
+
+1. **Clone or download the project files** to your local machine.
+
+2. **Compile the code**:
+   If you have `g++` installed, you can compile using the following command:
+   ```bash
+   g++ main.cpp -o schoolDatabase
+3. **Run the executable**
+   ```bash
+   ./schoolDatabase
+
