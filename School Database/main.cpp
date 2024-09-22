@@ -73,7 +73,6 @@ public:
             pair.second.displayStudentInfo();
             cout << " ID: " << pair.first << endl;
         }
-            
     }
     void displayAllCourses(){
         for(auto& pair : courseBD){
@@ -102,6 +101,45 @@ public:
             cout << "Course with ID: " << iD << " was not found" << endl;
         }
     }
+    void updateTeacher (const string& iD, const string& newTeacher){
+        auto it = courseBD.find(iD);
+        if(it != courseBD.end()){
+            it -> second.courseTeacher = newTeacher;
+            cout << "Teacher for course ID: " << iD << " has been updated" << endl;
+        }
+        else{
+            cout << "Course ID: " << iD << " was not found" << endl;
+        }
+    }
+    void updateCourseName(const string& iD, const string& newCourseName){
+        auto courseIteration = courseBD.find(iD);
+        if (courseIteration != courseBD.end()){
+            courseIteration -> second.courseName = newCourseName;
+            cout << "Name of Course ID: " << iD << " was updated to " << newCourseName << endl;
+        }
+        else {
+            cout << "Course ID: " << iD << " was not found" << endl;
+        }
+    }
+    void updateStudentName(const string& iD, const string& newStudentName){
+        auto studentIteration = studentBD.find(iD);
+        if(studentIteration != studentBD.end()){
+            studentIteration -> second.studentName = newStudentName;
+            cout << "Student with ID: " << iD << " name was updated to " << newStudentName << endl;
+        }
+        else {
+            cout << "Student ID: " << iD << " was not found" << endl;
+        }
+    }
+    void updateStudentLevel(const string& iD, const string& newStudentLevel){
+        auto studentIteration = studentBD.find(iD);
+        if(studentIteration != studentBD.end()){
+            studentIteration -> second.studentLevel = newStudentLevel;
+            cout << "Student with ID: " << iD << " school level was updated to " << newStudentLevel << endl;
+        }
+        else
+            cout << "Student ID: " << iD << " was not found" << endl;
+    }
     void deleteAllCourses(){
         courseBD.clear();
         cout << "All courses have been deleted" << endl;
@@ -118,11 +156,19 @@ int main(){
     Database newData;
     
     newData.addStudent("101", Student("Luis Herrera", "Senior"));
-  //Course newCourse("Into To Computer Science", "COMP 1333.012");
+
     newData.addCourse("COMP 1333.012",Course("Into To Computer Science", "D. Frank"));
     
     newData.displayAllStudents();
     newData.displayAllCourses();
+    
+    newData.updateTeacher("COMP 1333.012", "L. Herrera");
+    newData.updateCourseName("COMP 1333.012", "Into To Thug-o-nomics");
+    newData.displayAllCourses();
+    
+    newData.updateStudentName("101", "Abel Herrera");
+    newData.updateStudentLevel("101", "Freshman");
+    newData.displayAllStudents();
     
     newData.deleteStudent("101");
     newData.deleteCourse("COMP 1333.012");
@@ -130,9 +176,12 @@ int main(){
     newData.displayAllStudents();
     newData.displayAllCourses();
     
-  //Student* newStudent = new Student ("Luis Herrera", "Senior");
   
-  /*newCourse.displayCourseInfo();
+  
+  /*
+   Course newCourse("Into To Computer Science", "COMP 1333.012");
+   Student* newStudent = new Student ("Luis Herrera", "Senior");
+   newCourse.displayCourseInfo();
   newStudent -> displayStudentInfo();
   
   delete newStudent;
